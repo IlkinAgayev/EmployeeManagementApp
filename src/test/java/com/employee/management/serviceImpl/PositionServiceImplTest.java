@@ -37,7 +37,7 @@ class PositionServiceImplTest {
 
     @Test
     void savePositionTest() {
-        // given
+
         int positionId = 1;
         int departmentId = 1;
 
@@ -49,11 +49,11 @@ class PositionServiceImplTest {
 
         var position = Position.builder().id(positionId).name(name).salary(salary).department(department).build();
 
-        // when
+
         when(positionRepository.save(any(Position.class))).thenReturn(position);
         var positionResponse = positionService.savePosition(positionRequest);
 
-        // then
+
         assertNotNull(positionResponse);
         assertEquals(1, positionResponse.id());
         assertEquals("IT Coordinator", positionResponse.name());
@@ -61,18 +61,18 @@ class PositionServiceImplTest {
 
     @Test
     public void getPositionSuccessTest() {
-        // given
+
         int positionId = 1;
         String name = "IT Coordinator";
         double salary = 60000;
 
         var position = Position.builder().id(positionId).name(name).salary(salary).build();
 
-        // when
+
         when(positionRepository.findById(positionId)).thenReturn(Optional.of(position));
         var response = positionService.getPosition(positionId);
 
-        // when & then
+
 
         assertNotNull(response);
         assertEquals(1, response.id());
@@ -83,13 +83,13 @@ class PositionServiceImplTest {
 
     @Test
     public void getPositionErrorTest() {
-        // given
+
         int positionId = 1;
 
-        // when
+
         when(positionRepository.findById(positionId)).thenReturn(Optional.empty());
 
-        // then
+
         assertThrows(NotFoundException.class, () -> positionService.getPosition(positionId));
 
     }
@@ -124,7 +124,7 @@ class PositionServiceImplTest {
     @Test
     public void updatePositionSuccessTest() {
 
-        // given
+
         int positionId = 1;
         int departmentId = 1;
         String name = "IT Coordinator";
@@ -147,14 +147,12 @@ class PositionServiceImplTest {
 
     @Test
     public void updatePositionErrorTest() {
-        // given
+
         int positionId = 1;
         PositionRequest request = new PositionRequest("IT Coordinator", 60000, null);
 
-
-        // when
         when(positionRepository.findById(anyInt())).thenReturn(Optional.empty());
-        // when & then
+
         assertThrows(NotFoundException.class, ()-> positionService.updatePosition(positionId,request));
     }
 
@@ -162,17 +160,15 @@ class PositionServiceImplTest {
 
     @Test
     public void deletePositionSuccessTest() {
-        // given
+
         int positionId = 1;
         var position = Position.builder().id(positionId).name("IT Coordinator").salary(60000).build();
 
         given(positionRepository.findById(positionId)).willReturn(Optional.of(position));
         willDoNothing().given(positionRepository).delete(position);
 
-        // when
         positionService.deletePositionById(positionId);
 
-        // then
 
         verify(positionRepository, times(1)).findById(positionId);
         verify(positionRepository, times(1)).delete(position);

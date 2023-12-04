@@ -48,7 +48,7 @@ class PositionControllerTest {
 
     @Test
     void savePositionSuccessTest() throws Exception {
-        // Given
+
         int departmentId = 1;
         int positionId = 1;
         double salary = 60000;
@@ -61,7 +61,7 @@ class PositionControllerTest {
         var response = new PositionResponse(positionId, positionName);
         when(positionService.savePosition(request)).thenReturn(response);
 
-        // When & Then
+
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/employee-management/positions")
@@ -84,7 +84,7 @@ class PositionControllerTest {
         var responseTwo = new PositionResponse(2, "Network administrator.");
         when(positionService.getAllPosition()).thenReturn(Arrays.asList(responseOne, responseTwo));
 
-        // When & Then
+
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/v1/employee-management/positions/showAllPosition")
@@ -105,7 +105,6 @@ class PositionControllerTest {
         var response = new PositionResponse(positionId, positionName);
         when(positionService.getPosition(positionId)).thenReturn(response);
 
-        // When & Then
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/v1/employee-management/positions/{id}", positionId)
@@ -122,7 +121,7 @@ class PositionControllerTest {
 
     @Test
     void updatePositionSuccessTest() throws Exception {
-        // Given
+
         int departmentId = 1;
         int positionId = 1;
         double salary = 60000;
@@ -135,7 +134,7 @@ class PositionControllerTest {
         var response = new PositionResponse(positionId, positionName);
         when(positionService.updatePosition(positionId, request)).thenReturn(response);
 
-        // When & Then
+
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/api/v1/employee-management/positions/{id}", positionId)
@@ -158,7 +157,6 @@ class PositionControllerTest {
 
         willDoNothing().given(positionService).deletePositionById(positionId);
 
-        // When & Then
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/api/v1/employee-management/positions/delete/{id}", positionId)

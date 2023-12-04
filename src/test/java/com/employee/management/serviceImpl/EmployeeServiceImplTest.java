@@ -38,7 +38,7 @@ class EmployeeServiceImplTest {
 
     @Test
     void saveEmployeeTest() {
-        // given
+
         int employeeId = 1;
         int departmentId = 1;
         int positionId = 1;
@@ -50,11 +50,9 @@ class EmployeeServiceImplTest {
         var employee = Employee.builder().id(employeeId).name("Asif").surname("Elekberov").email("ae@gmail.com").status(true).department(itDepartment).position(positionItCoordinator).build();
 
 
-        // when
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         EmployeeResponse employeeResponse = employeeService.saveEmployee(employeeRequest);
 
-        //then
         assertNotNull(employeeResponse);
 
 
@@ -64,7 +62,7 @@ class EmployeeServiceImplTest {
 
     @Test
     void getEmployeeSuccessTest() {
-        // given
+
         int employeeId = 1;
         int departmentId = 1;
         int positionId = 1;
@@ -93,11 +91,11 @@ class EmployeeServiceImplTest {
 
     @Test
     void getEmployeeErrorTest() {
-        // when
+
 
         when(employeeRepository.findById(anyInt())).thenReturn(Optional.empty());
 
-        //then
+
         assertThrows(NotFoundException.class, () -> employeeService.getEmployee(anyInt()));
 
 
@@ -119,11 +117,11 @@ class EmployeeServiceImplTest {
         var employee2 = Employee.builder().id(employeeId2).name("Asif").surname("Elekberov").email("ae@gmail.com").status(true).department(itDepartment).position(positionItCoordinator).build();
 
 
-        // when
+
         when(employeeRepository.findAll()).thenReturn(Arrays.asList(employee, employee2));
         var employeeResponse = employeeService.getAllEmployee();
 
-        //then
+
         assertNotNull(employeeResponse);
         assertThat(employeeResponse.size()).isEqualTo(2);
 
@@ -146,7 +144,7 @@ class EmployeeServiceImplTest {
 
     @Test
     void updateEmployeeSuccessTest() {
-        // given
+
         int employeeId = 1;
         int departmentId = 1;
         int positionId = 1;
@@ -158,12 +156,12 @@ class EmployeeServiceImplTest {
         var employee = Employee.builder().id(employeeId).name("Amal ").surname("Gadirov").email("ae@gmail.com").status(true).department(itDepartment).position(positionItCoordinator).build();
 
 
-        // when
+
         when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         var response = employeeService.updateEmployee(employeeId, employeeRequest);
 
-        //then
+
         assertNotNull(response);
         assertEquals("Qalib", response.name());
         assertEquals("Elekberov", response.surname());
@@ -181,7 +179,7 @@ class EmployeeServiceImplTest {
 
         when(employeeRepository.findById(employeeId)).thenReturn(Optional.empty());
 
-        //then
+
         assertThrows(NotFoundException.class, () -> employeeService.updateEmployee(employeeId, request));
 
     }
@@ -189,7 +187,7 @@ class EmployeeServiceImplTest {
 
     @Test
     void deleteEmployeeSuccessTest() {
-        // given
+
         int employeeId = 1;
 
 
@@ -197,12 +195,12 @@ class EmployeeServiceImplTest {
         var employee = Employee.builder().id(employeeId).name("Amal ").surname("Gadirov").email("ae@gmail.com").status(true).department(null).position(null).build();
 
 
-        // when
+
         when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
         willDoNothing().given(employeeRepository).delete(employee);
         employeeService.deleteEmployeeById(employeeId);
 
-        //then
+
         verify(employeeRepository, times(1)).findById(employeeId);
         verify(employeeRepository, times(1)).delete(employee);
 

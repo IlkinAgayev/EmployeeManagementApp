@@ -38,15 +38,14 @@ class DepartmentServiceImplTest {
     @DisplayName("Returning the department according to the given ID")
     @Test
     public void getDepartmentSuccessTest() {
-        // given
+
         int departmentId = 1;
         Department department = Department.builder().id(departmentId).name("It Department").build();
         given(departmentRepository.findById(departmentId)).willReturn(Optional.of(department));
 
-        // when
+
         DepartmentResponse departmentResponse = departmentService.getDepartment(departmentId);
 
-        // when & then
 
         assertThat(departmentResponse).isNotNull();
         assertEquals(1, departmentResponse.id());
@@ -57,12 +56,10 @@ class DepartmentServiceImplTest {
     @DisplayName("Returning the department error according to the given ID")
     @Test
     public void getDepartmentErrorTest() {
-        // given
+
         given(departmentRepository.findById(anyInt())).willReturn(Optional.empty());
 
-        // when
 
-        // when & then
         assertThrows(NotFoundException.class, () -> departmentService.getDepartment(anyInt()));
     }
 
@@ -91,17 +88,13 @@ class DepartmentServiceImplTest {
     @DisplayName("JUnit test for getAllDepartments method ")
     @Test
     public void getAllDepartmentSuccessTest() {
-        // given
 
         Department department1 = Department.builder().id(1).name("It Department").build();
         Department department2 = Department.builder().id(2).name("Software Department").build();
 
-
-        // when
         when(departmentRepository.findAll()).thenReturn(Arrays.asList(department1, department2));
         List<DepartmentResponse> allDepartment = departmentService.getAllDepartment();
 
-        // then
 
         assertThat(allDepartment.size()).isEqualTo(2);
 

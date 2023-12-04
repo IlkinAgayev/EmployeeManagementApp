@@ -32,7 +32,6 @@ class DepartmentControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    //salamTEch
     @MockBean
     private DepartmentServiceImpl departmentService;
 
@@ -47,14 +46,12 @@ class DepartmentControllerTest {
 
     @Test
     void saveDepartmentSuccessTest() throws Exception {
-        // Given
+
         int departmentId = 1;
         String departmentName = "IT Department";
         var request = new DepartmentRequest(departmentName);
         var response = new DepartmentResponse(departmentId, departmentName);
         when(departmentService.saveDepartment(request)).thenReturn(response);
-
-        // When & Then
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/employee-management/departments")
@@ -114,7 +111,7 @@ class DepartmentControllerTest {
 
     @Test
     void updateDepartmentSuccessTest() throws Exception {
-        // Given
+
         int departmentId = 1;
         String departmentName = "IT Department";
         var request = new DepartmentRequest(departmentName);
