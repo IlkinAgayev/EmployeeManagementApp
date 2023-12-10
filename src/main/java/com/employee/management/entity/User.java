@@ -1,6 +1,7 @@
 package com.employee.management.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,8 @@ public class User implements UserDetails {
 
     private String name;
     private String surname;
+
+    @Email(message = "Wrong Email check KeyWord ---> @")
     private String email;
 
     private boolean status;
