@@ -29,7 +29,7 @@ public class PositionController {
     }
 
     @GetMapping("/{id}")
-    public PositionResponse getOne(@PathVariable int id) {
+    public PositionResponse getById(@PathVariable int id) {
         return positionService.getPosition(id);
     }
 
