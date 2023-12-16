@@ -25,7 +25,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeResponse saveEmployee(EmployeeRequest request) {
         logger.info("ActionLog.saveEmployee.start request: {}", request);
 
-
         Employee employee = EmployeeMapper.INSTANCE.modelToEntity(request);
         EmployeeResponse response = EmployeeMapper.INSTANCE.entityToModel(employeeRepository.save(employee));
 

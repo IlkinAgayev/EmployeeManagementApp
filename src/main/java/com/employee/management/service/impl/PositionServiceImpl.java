@@ -28,7 +28,6 @@ public class PositionServiceImpl implements PositionService {
         Position position = PositionMapper.INSTANCE.modelToEntity(request);
         PositionResponse response = PositionMapper.INSTANCE.entityToModel(positionRepository.save(position));
 
-
         logger.info("ActionLog.savePosition.end response: {}", response);
         return response;
     }
